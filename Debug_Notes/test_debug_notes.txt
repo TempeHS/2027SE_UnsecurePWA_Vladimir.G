@@ -1,0 +1,27 @@
+Write up of test and debugging phase
+
+
+
+Content Security Policy
+
+Cross-Site Request Forgery
+
+File Attacks and Side Channel Attacks
+
+API
+
+Invalid Forwards and Redirects
+
+Race Conditions
+
+Form Attributes
+
+Security Testing Approaches
+
+SQL Injection
+
+How to Guide – 2FA using Google Authenticator and Flask
+
+Cross Frame Scripting
+
+Cross Site Scripting (XSS)

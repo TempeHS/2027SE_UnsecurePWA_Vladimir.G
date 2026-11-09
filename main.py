@@ -13,6 +13,39 @@ app = Flask(__name__)
 CORS(app)
 
 
+def password_meets_rules(password: str) -> bool:
+    score = 0
+    feedback = []
+
+    if len(password) < 8:
+        feedback.append("   Password should be 8 characters.")
+    else:
+        score += 1
+
+    if any(c.islower() for c in password):
+        score += 1
+    else:
+        feedback.append("   Password should have lowercase.")
+
+    if any(c.isupper() for c in password):
+        score += 1
+    else:
+        feedback.append("   Password should have uppercase.")
+
+    if any(c.isdigit() for c in password):
+        score += 1
+    else:
+        feedback.append("   Password should have number.")
+
+    special_characters = "!@#$%^&*()-_=+[]{}|;:,.<>/?`~"
+    if any(c in special_characters for c in password):
+        score += 1
+    else:
+        feedback.append("Password should have special character.")
+
+    return feedback, score
+
+
 @app.route("/success.html", methods=["POST", "GET", "PUT", "PATCH", "DELETE"])
 def addFeedback():
     if request.method == "GET" and request.args.get("url"):
@@ -36,11 +69,17 @@ def signup():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
+
+        score, feedback = password_meets_rules(password)
+
+        if score != 5:
+            return render_template("/signup.html", feedback=feedback, score=score, 400)
+
         DoB = request.form["dob"]
         dbHandler.insertUser(username, password, DoB)
         return render_template("/index.html")
-    else:
-        return render_template("/signup.html")
+
+            
 
 
 @app.route("/index.html", methods=["POST", "GET", "PUT", "PATCH", "DELETE"])
