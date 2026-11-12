@@ -3,8 +3,8 @@ import requests
 
 url = "http://127.0.0.1:5000/"
 
-usernames = ["test_student1", "test_no_user1", "test_admin1"]
-passwords = ["wrong_password1", "wrong_passwords2", "secret"]
+usernames = ["test_student1", "test_no_user1", "rex"]
+passwords = ["wrong_password1", "wrong_passwords2", "NewP@ssword5"]
 
 for username in usernames:
     for password in passwords:
