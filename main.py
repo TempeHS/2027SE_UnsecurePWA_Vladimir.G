@@ -41,7 +41,7 @@ def password_meets_rules(password: str) -> bool:
     if any(c in special_characters for c in password):
         score += 1
     else:
-        feedback.append("Password should have special character.")
+        feedback.append("   Password should have special character.")
 
     return feedback, score
 
@@ -70,16 +70,16 @@ def signup():
         username = request.form["username"]
         password = request.form["password"]
 
-        score, feedback = password_meets_rules(password)
+        feedback, score = password_meets_rules(password)
 
         if score != 5:
-            return render_template("/signup.html", feedback=feedback, score=score, 400)
+            return render_template("/signup.html", feedback=feedback, score=score)
 
         DoB = request.form["dob"]
         dbHandler.insertUser(username, password, DoB)
         return render_template("/index.html")
 
-            
+    return render_template("/signup.html")
 
 
 @app.route("/index.html", methods=["POST", "GET", "PUT", "PATCH", "DELETE"])
